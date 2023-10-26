@@ -1,8 +1,15 @@
 using Microsoft.EntityFrameworkCore;
+using MyWebApi.Models;
 
 namespace MyWebApi.Data;
 
 public class SqliteDbContext : DbContext
 {
-    // TODO: Aqui nos quedamos
+    public DbSet<Alumno> Alumnos { get; set; }
+
+    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+    {
+        optionsBuilder.UseSqlite("Data Source=Data/caps.db");
+        base.OnConfiguring(optionsBuilder);
+    }
 }
