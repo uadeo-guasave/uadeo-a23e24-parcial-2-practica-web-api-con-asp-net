@@ -12,7 +12,7 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddDbContext<SqliteDbContext>(options => 
-    options.UseSqlite("Data Source=Data/caps.db")
+    options.UseSqlite(builder.Configuration.GetConnectionString("Sqlite"))
 );
 
 var app = builder.Build();

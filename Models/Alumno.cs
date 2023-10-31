@@ -1,3 +1,5 @@
+using System.ComponentModel.DataAnnotations.Schema;
+
 namespace MyWebApi.Models;
 
 public class Alumno
@@ -7,4 +9,7 @@ public class Alumno
     public string Nombres { get; set; } = null!;
     public string Apellidos { get; set; } = null!;
     public int CarreraId { get; set; }
+
+    [NotMapped]
+    public Carrera Carrera { get; set; } = null!;
 }
