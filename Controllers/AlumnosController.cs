@@ -58,4 +58,29 @@ public class AlumnosController : ControllerBase
     {
         return Task.Run(() => _db.Alumnos.Find(id));
     }
+
+    // http put patch
+    [HttpPut("edit/{id}")] // https://localhost:7070/api/Alumnos/edit/1
+    public async Task<IActionResult> UpdateAlumno(int id, [FromBody] Alumno alumnoDatosNuevos)
+    {
+        if (alumnoDatosNuevos is null || id != alumnoDatosNuevos.Id)
+        {
+            return BadRequest();
+        }
+
+        var alumno = await GetAlumnoById(id);
+        if (alumno is null)
+        {
+            return NotFound();
+        }
+
+        alumno.Matricula = alumnoDatosNuevos.Matricula;
+        alumno.Nombres = alumnoDatosNuevos.Nombres;
+        alumno.Apellidos = alumnoDatosNuevos.Apellidos;
+
+        _db.Alumnos.Update(alumno);
+        await _db.SaveChangesAsync();
+
+        return NoContent();
+    }
 }
