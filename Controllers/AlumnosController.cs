@@ -17,7 +17,7 @@ public class AlumnosController : ControllerBase
         _db = db;
     }
 
-    [HttpGet]
+    [HttpGet] // https://localhost:7040/api/Alumnos/
     public async Task<IEnumerable<Alumno>> Get()
     {
         // Obtener todos los alumnos
@@ -33,5 +33,29 @@ public class AlumnosController : ControllerBase
         await _db.SaveChangesAsync();
 
         return Ok(alumno);
+    }
+
+    [HttpGet("{id}")] // https://localhost:7040/api/Alumnos/1
+    public async Task<ActionResult<Alumno>> FindAlumnoById(int id)
+    {
+        // validar id
+        if (id == 0)
+        {
+            return BadRequest();
+        }
+
+        // buscar el alumno en la base de datos
+        var alumno = await GetAlumnoById(id); // retorna Alumno o null
+        if (alumno is null)
+        {
+            return NotFound();
+        }
+
+        return Ok(alumno);
+    }
+
+    private Task<Alumno?> GetAlumnoById(int id)
+    {
+        return Task.Run(() => _db.Alumnos.Find(id));
     }
 }
