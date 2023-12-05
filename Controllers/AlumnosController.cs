@@ -83,4 +83,24 @@ public class AlumnosController : ControllerBase
 
         return NoContent();
     }
+
+    [HttpDelete("delete/{id}")] // https://localhost:7070/api/Alumnos/delete/1
+    public async Task<IActionResult> DeleteAlumno(int id)
+    {
+        if (id == 0)
+        {
+            return BadRequest();
+        }
+
+        var alumno = await GetAlumnoById(id);
+        if (alumno is null)
+        {
+            return NotFound();
+        }
+
+        _db.Alumnos.Remove(alumno);
+        await _db.SaveChangesAsync();
+
+        return NoContent();
+    }
 }
