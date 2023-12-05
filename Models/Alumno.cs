@@ -11,5 +11,5 @@ public class Alumno
     public int CarreraId { get; set; }
 
     [NotMapped]
-    public Carrera Carrera { get; set; } = null!;
+    public Carrera? Carrera { get; set; }
 }

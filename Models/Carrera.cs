@@ -8,5 +8,5 @@ public class Carrera
     public string Nombre { get; set; } = null!;
 
     [NotMapped]
-    public List<Alumno> Alumnos { get; set; } = new();
+    public List<Alumno>? Alumnos { get; set; }
 }
